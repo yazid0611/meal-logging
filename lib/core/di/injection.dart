@@ -6,6 +6,8 @@ import 'package:meal_logging/data/sources/inredients_remote_datasource.dart';
 import 'package:meal_logging/domain/repositories/ingredients_repository.dart';
 import 'package:meal_logging/domain/usecases/analyze_usecase.dart';
 import 'package:meal_logging/domain/usecases/get_nutrition.dart';
+import 'package:meal_logging/presentation/bloc/ingredients/ingredients_bloc.dart';
+import 'package:meal_logging/presentation/bloc/nutrition/nutrition_bloc.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -24,4 +26,7 @@ void configureDependencies() {
 
   sl.registerLazySingleton(() => AnalyzeUsecase(repository: sl()));
   sl.registerLazySingleton(() => GetNutritionUseCase(repository: sl()));
+
+  sl.registerFactory(() => IngredientsBloc(sl<AnalyzeUsecase>()));
+  sl.registerFactory(() => NutritionBloc(sl<GetNutritionUseCase>()));
 }
