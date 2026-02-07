@@ -21,14 +21,6 @@ class TimeoutFailure extends Failure {
   const TimeoutFailure({super.message = 'Request timed out. Please try again'});
 }
 
-class CacheFailure extends Failure {
-  const CacheFailure({super.message = 'Cache error occurred'});
-}
-
-class ValidationFailure extends Failure {
-  const ValidationFailure({required super.message});
-}
-
 class UnknownFailure extends Failure {
   const UnknownFailure({super.message = 'An unknown error occurred'});
 }
