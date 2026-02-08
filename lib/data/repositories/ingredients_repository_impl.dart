@@ -22,7 +22,11 @@ class IngredientsRepositoryImpl implements IngredientsRepository {
         ServerFailure(message: 'Failed to analyze meal: ${e.message}'),
       );
     } catch (e) {
-      return Left(UnknownFailure(message: 'An unexpected error occurred: $e'));
+      return Left(
+        UnknownFailure(
+          message: 'An unexpected error occurred: ${e.toString()}',
+        ),
+      );
     }
   }
 

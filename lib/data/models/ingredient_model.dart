@@ -14,7 +14,7 @@ class IngredientModel {
   factory IngredientModel.fromJson(Map<String, dynamic> json) {
     return IngredientModel(
       name: json['name'] ?? '',
-      quantity: json['quantity']?.toDouble() ?? 0.0,
+      quantity: json['quantity'],
       unit: json['unit'],
     );
   }

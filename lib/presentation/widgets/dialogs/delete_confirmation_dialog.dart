@@ -22,7 +22,6 @@ class DeleteConfirmationDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Delete icon
           Container(
             width: 56,
             height: 56,
@@ -38,8 +37,6 @@ class DeleteConfirmationDialog extends StatelessWidget {
           ),
 
           const SizedBox(height: 12),
-
-          // Description
           Text(
             'Are you sure you want to delete "$itemName"? This action cannot be undone.',
             textAlign: TextAlign.center,
@@ -52,8 +49,6 @@ class DeleteConfirmationDialog extends StatelessWidget {
           ),
 
           const SizedBox(height: 24),
-
-          // Action Buttons
           DialogActionButtons(
             onCancel: () => Navigator.pop(context),
             onSave: () {

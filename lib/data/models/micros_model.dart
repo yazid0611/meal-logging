@@ -6,13 +6,18 @@ class MicrosModel {
   MicrosModel({required this.nutrients});
 
   factory MicrosModel.fromJson(Map<String, dynamic> json) {
-    return MicrosModel(
-      nutrients: Map<String, double>.from(json['nutrition'] ?? {}),
-    );
+    final Map<String, double> nutrients = {};
+    json.forEach((key, value) {
+      if (value is num) {
+        nutrients[key] = value.toDouble();
+      }
+    });
+
+    return MicrosModel(nutrients: nutrients);
   }
 
   Map<String, dynamic> toJson() {
-    return {'nutrition': nutrients};
+    return nutrients;
   }
 
   MicrosEntity toEntity() {

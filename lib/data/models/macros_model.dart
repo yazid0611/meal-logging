@@ -17,15 +17,14 @@ class MacrosModel {
     required this.sodium,
   });
 
-
   factory MacrosModel.fromJson(Map<String, dynamic> json) {
     return MacrosModel(
-      calories: (json['calories'] as num?)?.toDouble() ?? 0.0,
-      protein: (json['protein_g'] as num?)?.toDouble() ?? 0.0,
-      carbs: (json['carbs_g'] as num?)?.toDouble() ?? 0.0,
-      fat: (json['fat_g'] as num?)?.toDouble() ?? 0.0,
-      sugar: (json['sugar_g'] as num?)?.toDouble() ?? 0.0,
-      sodium: (json['sodium_mg'] as num?)?.toDouble() ?? 0.0,
+      calories: (json['calories'])?.toDouble() ?? 0.0,
+      protein: (json['protein_g'])?.toDouble() ?? 0.0,
+      carbs: (json['carbs_g'])?.toDouble() ?? 0.0,
+      fat: (json['fat_g'])?.toDouble() ?? 0.0,
+      sugar: (json['sugar_g'])?.toDouble() ?? 0.0,
+      sodium: (json['sodium_mg'])?.toDouble() ?? 0.0,
     );
   }
 
