@@ -1,7 +1,9 @@
 class ApiConstants {
   ApiConstants._();
 
-  static const String baseUrl = 'http://40.89.185.79:8002';
+  static const String port = '8002';
+  static const String baseUrl = 'http://10.141.238.16:$port';
+  // static const String baseUrl = 'http://40.89.185.79:$port';
 
   static const String ingredientsEndpoint = '/v4/ingredients';
   static const String nutrientsMicroEndpoint = '/v5/nutrients/micro';

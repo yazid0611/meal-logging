@@ -10,10 +10,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  
   # State Management
   flutter_bloc:
   
@@ -30,8 +26,14 @@ dev_dependencies:
   equatable:
   dartz:
   intl:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
   
   flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/

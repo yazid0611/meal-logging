@@ -2,7 +2,7 @@ import 'package:meal_logging/domain/entities/ingredient_entity.dart';
 
 class IngredientModel {
   final String name;
-  final double quantity;
+  final int quantity;
   final String unit;
 
   IngredientModel({
@@ -35,7 +35,7 @@ class IngredientModel {
     );
   }
 
-  IngredientModel copyWith({String? name, double? quantity, String? unit}) {
+  IngredientModel copyWith({String? name, int? quantity, String? unit}) {
     return IngredientModel(
       name: name ?? this.name,
       quantity: quantity ?? this.quantity,

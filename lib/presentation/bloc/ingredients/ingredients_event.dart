@@ -47,3 +47,12 @@ class RemoveIngredientEvent extends IngredientsEvent {
 class ClearIngredientsEvent extends IngredientsEvent {
   const ClearIngredientsEvent();
 }
+
+class UpdateDishNameEvent extends IngredientsEvent {
+  final String dishName;
+
+  const UpdateDishNameEvent(this.dishName);
+
+  @override
+  List<Object?> get props => [dishName];
+}

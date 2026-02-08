@@ -8,14 +8,14 @@ import 'package:meal_logging/domain/entities/nutrition_entity.dart';
 import 'package:meal_logging/domain/repositories/ingredients_repository.dart';
 
 class IngredientsRepositoryImpl implements IngredientsRepository {
-  final IngredientsRemoteDataSourceImpl remoteDataSourceImpl;
+  final IngredientsRemoteDatasource remoteDataSource;
 
-  IngredientsRepositoryImpl({required this.remoteDataSourceImpl});
+  IngredientsRepositoryImpl({required this.remoteDataSource});
 
   @override
   Future<Either<Failure, DishEntity>> analyzeMeal(String prompt) async {
     try {
-      final dishModel = await remoteDataSourceImpl.analyzeMeal(prompt);
+      final dishModel = await remoteDataSource.analyzeMeal(prompt);
       return Right(dishModel.toEntity());
     } on DioException catch (e) {
       return Left(
@@ -32,7 +32,7 @@ class IngredientsRepositoryImpl implements IngredientsRepository {
   ) async {
     try {
       final dishModel = DishModel.fromEntity(dish);
-      final nutritionModel = await remoteDataSourceImpl.getNutritionDetails(
+      final nutritionModel = await remoteDataSource.getNutritionDetails(
         dishModel,
       );
       return Right(nutritionModel.toEntity());

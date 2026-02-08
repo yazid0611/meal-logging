@@ -3,12 +3,12 @@ import 'package:meal_logging/data/models/dish_model.dart';
 import 'package:meal_logging/data/models/nutrition_model.dart';
 import 'package:dio/dio.dart';
 
-abstract class InredientsRemoteDatasource {
+abstract class IngredientsRemoteDatasource {
   Future<DishModel> analyzeMeal(String prompt);
   Future<NutritionModel> getNutritionDetails(DishModel dish);
 }
 
-class IngredientsRemoteDataSourceImpl implements InredientsRemoteDatasource {
+class IngredientsRemoteDataSourceImpl implements IngredientsRemoteDatasource {
   final Dio dio;
 
   IngredientsRemoteDataSourceImpl({required this.dio});
@@ -29,7 +29,7 @@ class IngredientsRemoteDataSourceImpl implements InredientsRemoteDatasource {
         }
         return DishModel.fromJson(dishes.first as Map<String, dynamic>);
       } else {
-        throw Exception('Failed to analyze meal: ${res.statusCode}');
+        throw Exception('Failed to analyze meal: ${res.statusMessage}');
       }
     });
     return dishModel;
@@ -62,7 +62,9 @@ class IngredientsRemoteDataSourceImpl implements InredientsRemoteDatasource {
         }
         return NutritionModel.fromJson({'macros': macros, 'micros': micros});
       } else {
-        throw Exception('Failed to get nutrition details: ${res.statusCode}');
+        throw Exception(
+          'Failed to get nutrition details: ${res.statusMessage}',
+        );
       }
     });
     return nutritionModel;

@@ -16,17 +16,22 @@ void configureDependencies() {
 
   sl.registerLazySingleton<Dio>(() => sl<DioClient>().getDio());
 
-  sl.registerLazySingleton<InredientsRemoteDatasource>(
-    () => IngredientsRemoteDataSourceImpl(dio: sl()),
+  sl.registerLazySingleton<IngredientsRemoteDatasource>(
+    () => IngredientsRemoteDataSourceImpl(dio: sl<Dio>()),
   );
 
   sl.registerLazySingleton<IngredientsRepository>(
-    () => IngredientsRepositoryImpl(remoteDataSourceImpl: sl()),
+    () => IngredientsRepositoryImpl(
+      remoteDataSource: sl<IngredientsRemoteDatasource>(),
+    ),
   );
 
-  sl.registerLazySingleton(() => AnalyzeUsecase(repository: sl()));
-  sl.registerLazySingleton(() => GetNutritionUseCase(repository: sl()));
-
+  sl.registerLazySingleton(
+    () => AnalyzeUsecase(repository: sl<IngredientsRepository>()),
+  );
+  sl.registerLazySingleton(
+    () => GetNutritionUseCase(repository: sl<IngredientsRepository>()),
+  );
   sl.registerFactory(() => IngredientsBloc(sl<AnalyzeUsecase>()));
   sl.registerFactory(() => NutritionBloc(sl<GetNutritionUseCase>()));
 }

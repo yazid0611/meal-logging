@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meal_logging/core/errors/failures.dart';
@@ -16,6 +18,7 @@ class IngredientsBloc extends Bloc<IngredientsEvent, IngredientsState> {
     on<UpdateIngredientEvent>(onUpdateIngredient);
     on<RemoveIngredientEvent>(onRemoveIngredient);
     on<ClearIngredientsEvent>(onClearIngredients);
+    on<UpdateDishNameEvent>(onUpdateDishName);
   }
 
   Future<void> onAnalyzeMeal(
@@ -42,7 +45,6 @@ class IngredientsBloc extends Bloc<IngredientsEvent, IngredientsState> {
     Emitter<IngredientsState> emit,
   ) {
     if (state.dish == null) return;
-
     final updatedIngredients = List<IngredientEntity>.from(state.ingredients)
       ..add(event.ingredient);
     final updatedDish = state.dish!.copyWith(ingredients: updatedIngredients);
@@ -54,7 +56,6 @@ class IngredientsBloc extends Bloc<IngredientsEvent, IngredientsState> {
     Emitter<IngredientsState> emit,
   ) {
     if (state.dish == null) return;
-
     final updatedIngredients = List<IngredientEntity>.from(state.ingredients)
       ..[event.index] = event.ingredient;
     final updatedDish = state.dish!.copyWith(ingredients: updatedIngredients);
@@ -66,7 +67,6 @@ class IngredientsBloc extends Bloc<IngredientsEvent, IngredientsState> {
     Emitter<IngredientsState> emit,
   ) {
     if (state.dish == null) return;
-
     final updatedIngredients = List<IngredientEntity>.from(state.ingredients)
       ..removeAt(event.index);
     final updatedDish = state.dish!.copyWith(ingredients: updatedIngredients);
@@ -78,9 +78,25 @@ class IngredientsBloc extends Bloc<IngredientsEvent, IngredientsState> {
     Emitter<IngredientsState> emit,
   ) {
     if (state.dish == null) return;
+    emit(
+      state.copyWith(
+        status: IngredientsStatus.modified,
+        dish: state.dish!.copyWith(ingredients: []),
+      ),
+    );
+  }
 
-    final updatedDish = state.dish!.copyWith(ingredients: []);
-    emit(state.copyWith(status: IngredientsStatus.modified, dish: updatedDish));
+  void onUpdateDishName(
+    UpdateDishNameEvent event,
+    Emitter<IngredientsState> emit,
+  ) {
+    if (state.dish == null) return;
+    emit(
+      state.copyWith(
+        status: IngredientsStatus.modified,
+        dish: state.dish!.copyWith(dishName: event.dishName),
+      ),
+    );
   }
 
   String mapFailureToMessage(Failure failure) {
@@ -92,7 +108,7 @@ class IngredientsBloc extends Bloc<IngredientsEvent, IngredientsState> {
       case TimeoutFailure _:
         return 'Request timed out. Please try again';
       default:
-        return 'An unexpected error occurred';
+        return failure.message;
     }
   }
 }

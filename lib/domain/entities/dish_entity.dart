@@ -4,7 +4,7 @@ import 'package:meal_logging/domain/entities/macros_entity.dart';
 
 class DishEntity extends Equatable {
   final String dishName;
-  final double confidence;
+  final int confidence;
   final List<IngredientEntity> ingredients;
   final MacrosEntity? nutrition;
   final List<String> allergens;
@@ -21,7 +21,7 @@ class DishEntity extends Equatable {
 
   DishEntity copyWith({
     String? dishName,
-    double? confidence,
+    int? confidence,
     List<IngredientEntity>? ingredients,
     MacrosEntity? nutrition,
     List<String>? allergens,

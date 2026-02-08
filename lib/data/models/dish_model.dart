@@ -4,7 +4,7 @@ import 'package:meal_logging/domain/entities/dish_entity.dart';
 
 class DishModel {
   final String dishName;
-  final double confidence;
+  final int confidence;
   final List<IngredientModel> ingredients;
   final MacrosModel? nutrition;
   final List<String> allergens;
@@ -21,16 +21,18 @@ class DishModel {
 
   factory DishModel.fromJson(Map<String, dynamic> json) {
     return DishModel(
-      dishName: json['dish_name'] as String? ?? 'Unknown Dish',
-      confidence: (json['confidence'] as num?)?.toDouble() ?? 0.0,
-      ingredients: (json['ingredients'] as List<dynamic>?)
+      dishName: json['dish_name'] ?? 'Unknown Dish',
+      confidence: json['confidence'],
+      ingredients:
+          (json['ingredients'] as List<dynamic>?)
               ?.map((e) => IngredientModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       nutrition: json['nutrition'] != null
           ? MacrosModel.fromJson(json['nutrition'] as Map<String, dynamic>)
           : null,
-      allergens: (json['allergens'] as List<dynamic>?)
+      allergens:
+          (json['allergens'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           [],
@@ -64,8 +66,9 @@ class DishModel {
     return DishModel(
       dishName: entity.dishName,
       confidence: entity.confidence,
-      ingredients:
-          entity.ingredients.map((e) => IngredientModel.fromEntity(e)).toList(),
+      ingredients: entity.ingredients
+          .map((e) => IngredientModel.fromEntity(e))
+          .toList(),
       nutrition: entity.nutrition != null
           ? MacrosModel(
               calories: entity.nutrition!.calories,

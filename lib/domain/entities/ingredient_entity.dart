@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class IngredientEntity extends Equatable {
   final String name;
-  final double quantity;
+  final int quantity;
   final String unit;
 
   const IngredientEntity({
@@ -11,7 +11,11 @@ class IngredientEntity extends Equatable {
     required this.unit,
   });
 
-  IngredientEntity copyWith({String? name, double? quantity, String? unit}) {
+  IngredientEntity copyWith({
+    String? name,
+    int? quantity,
+    String? unit,
+  }) {
     return IngredientEntity(
       name: name ?? this.name,
       quantity: quantity ?? this.quantity,
