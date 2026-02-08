@@ -15,7 +15,3 @@ class GetNutritionEvent extends NutritionEvent {
   @override
   List<Object> get props => [dish];
 }
-
-class ClearNutritionEvent extends NutritionEvent {
-  const ClearNutritionEvent();
-}

@@ -60,20 +60,19 @@ class LogMealScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12),
           child: PrimaryButton(
             text: 'Done',
-            onPressed: () => _onDonePressed(context, descriptionController),
+            onPressed: () => onDonePressed(context, descriptionController),
           ),
         ),
       ),
     );
   }
 
-  void _onDonePressed(BuildContext context, TextEditingController controller) {
+  void onDonePressed(BuildContext context, TextEditingController controller) {
     final description = controller.text.trim();
     if (description.isEmpty) {
       UIUtils.showError(context, 'Please enter a meal description');
       return;
     }
-
     context.pushNamed(RouteName.mealReview, extra: {'prompt': description});
   }
 }

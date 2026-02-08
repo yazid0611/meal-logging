@@ -31,11 +31,11 @@ class IngredientCard extends StatelessWidget {
               children: [
                 Text(
                   ingredient.name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
                     fontFamily: 'DM Sans',
-                    color: AppColors.primary,
+                    color: AppColors.primary.withOpacity(0.7),
                   ),
                 ),
                 const SizedBox(height: 4),

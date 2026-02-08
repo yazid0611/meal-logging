@@ -56,7 +56,6 @@ class IngredientsRemoteDataSourceImpl implements IngredientsRemoteDatasource {
 
         final macros = total['macros'] as Map<String, dynamic>?;
         final micros = total['micros'] as Map<String, dynamic>?;
-
         if (macros == null || micros == null) {
           throw Exception('Incomplete nutrition data');
         }

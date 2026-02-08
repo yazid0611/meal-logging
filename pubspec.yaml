@@ -27,6 +27,8 @@ dependencies:
   dartz:
   intl:
 
+  google_fonts: 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

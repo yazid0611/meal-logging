@@ -87,7 +87,7 @@ class MealReviewContent extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: ElevatedButton(
-                  onPressed: () => _onFinishLogging(context, state),
+                  onPressed: () => onFinishLogging(context, state),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -122,7 +122,7 @@ class MealReviewContent extends StatelessWidget {
     );
   }
 
-  void _onFinishLogging(BuildContext context, IngredientsState state) {
+  void onFinishLogging(BuildContext context, IngredientsState state) {
     if (state.dish != null) {
       context.read<NutritionBloc>().add(GetNutritionEvent(state.dish!));
       context.pushNamed(

@@ -25,10 +25,6 @@ class NutritionState extends Equatable {
     );
   }
 
-  bool get hasNutrition => nutrition != null;
-  MacrosEntity? get macros => nutrition?.macros;
-  MicrosEntity? get micros => nutrition?.micros;
-
   @override
   List<Object?> get props => [status, nutrition, errorMessage];
 }

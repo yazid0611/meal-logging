@@ -66,7 +66,7 @@ class _MealReviewBodyState extends State<MealReviewBody> {
                 InfoCard(
                   child: buildEditableField(
                     text: dish.dishName,
-                    textColor: AppColors.primary,
+                    textColor: AppColors.primary.withOpacity(0.7),
                     icon: Icons.edit_outlined,
                     onTap: () => editDishName(context, dish.dishName),
                   ),
@@ -78,7 +78,7 @@ class _MealReviewBodyState extends State<MealReviewBody> {
                 InfoCard(
                   child: buildEditableField(
                     text: DateFormat('dd/MM/yyyy').format(selectedDate),
-                    textColor: AppColors.primary,
+                    textColor: AppColors.primary.withOpacity(0.7),
                     icon: Icons.calendar_today_outlined,
                     onTap: () => _selectDate(context),
                   ),
@@ -96,10 +96,10 @@ class _MealReviewBodyState extends State<MealReviewBody> {
                           children: [
                             Text(
                               selectedTime.format(context),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'DM Sans',
-                                color: AppColors.primary,
+                                color: AppColors.primary.withOpacity(0.7),
                               ),
                             ),
                             GestureDetector(

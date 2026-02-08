@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:meal_logging/domain/entities/dish_entity.dart';
 import 'package:meal_logging/domain/usecases/get_nutrition.dart';
 import '../../../core/errors/failures.dart';
-import '../../../domain/entities/dish_entity.dart';
 import '../../../domain/entities/nutrition_entity.dart';
-import '../../../domain/entities/macros_entity.dart';
-import '../../../domain/entities/micros_entity.dart';
 
 part 'nutrition_event.dart';
 part 'nutrition_state.dart';
@@ -16,7 +14,6 @@ class NutritionBloc extends Bloc<NutritionEvent, NutritionState> {
 
   NutritionBloc(this.getNutritionUseCase) : super(const NutritionState()) {
     on<GetNutritionEvent>(onGetNutrition);
-    on<ClearNutritionEvent>(onClearNutrition);
   }
 
   Future<void> onGetNutrition(
@@ -24,66 +21,20 @@ class NutritionBloc extends Bloc<NutritionEvent, NutritionState> {
     Emitter<NutritionState> emit,
   ) async {
     emit(state.copyWith(status: NutritionStatus.loading));
-    // final result = await getNutritionUseCase(event.dish);
-    // result.fold(
-    //   (failure) => emit(
-    //     state.copyWith(
-    //       status: NutritionStatus.error,
-    //       errorMessage: mapFailureToMessage(failure),
-    //     ),
-    //   ),
-    //   (nutrition) => emit(
-    //     state.copyWith(status: NutritionStatus.loaded, nutrition: nutrition),
-    //   ),
-    // );
-
-    // For testing only
-    try {
-      await Future.delayed(const Duration(milliseconds: 800));
-      final macros = MacrosEntity(
-        calories: 475.0,
-        protein: 53.5,
-        carbs: 49.0,
-        fat: 7.0,
-        sugar: 3.0,
-        sodium: 131.0,
-      );
-
-      final micros = MicrosEntity(
-        nutrients: {
-          'phosphorus_mg': 865.0,
-          'potassium_mg': 1655.0,
-          'vitamin_a_mcg': 800.0,
-          'chlorine_mg': 441.0,
-          'vitamin_b9_dfe_mcg': 280.0,
-          'choline_mg': 255.0,
-          'sodium_mg': 244.0,
-          'magnesium_mg': 173.0,
-          'vitamin_k_mcg': 120.0,
-          'vitamin_c_mg': 50.0,
-          'vitamin_b3_mg': 34.7,
-          'vitamin_b7_mcg': 30.6,
-          'vitamin_b5_mg': 3.8,
-          'vitamin_b6_mg': 2.2,
-        },
-      );
-
-      final nutrition = NutritionEntity(macros: macros, micros: micros);
-      emit(
-        state.copyWith(status: NutritionStatus.loaded, nutrition: nutrition),
-      );
-    } catch (e) {
-      emit(
+    final result = await getNutritionUseCase(event.dish);
+    result.fold(
+      (failure) => emit(
         state.copyWith(
           status: NutritionStatus.error,
-          errorMessage: e.toString(),
+          errorMessage: mapFailureToMessage(failure),
         ),
-      );
-    }
-  }
-
-  void onClearNutrition(ClearNutritionEvent event, Emitter emit) {
-    emit(const NutritionState());
+      ),
+      (nutrition) {
+        emit(
+          state.copyWith(status: NutritionStatus.loaded, nutrition: nutrition),
+        );
+      },
+    );
   }
 
   String mapFailureToMessage(Failure failure) {
